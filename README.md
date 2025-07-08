@@ -67,3 +67,77 @@ Fawry-Quantum-Bookstore/
 ### `MailService`
 - `sendEmail(Book book, String email, FileType fileType)`
 
+
+
+```mermaid
+
+classDiagram
+    direction LR
+    
+    class Book {
+        -String ISBN
+        -String title
+        -int publishYear
+        -double price
+        -boolean isDemo
+        +getISBN()
+        +getTitle()
+        +getPublishYear()
+        +getPrice()
+        +isDemo()
+        +isShippable()*
+    }
+
+    class EBook {
+        -FileType fileType
+        +getFileType()
+        +isShippable()
+    }
+
+    class Paper {
+        -int quantity
+        +getQuantity()
+        +reduceQuantity(quantity)
+        +isShippable()
+    }
+
+    class Inventory {
+        -ArrayList~Book~ books
+        +addBook(book)
+        +removeOutdatedBooks(currentYear, books)
+        +getBooks()
+        +getBook(ISBN)
+        +isEmpty()
+    }
+
+    class BookStore {
+        -Inventory inventory
+        -ArrayList~Book~ books
+        +buy(ISBN, quantity, email, address)
+    }
+
+    class MailService {
+        +sendEmail(book, email, fileType)
+    }
+
+    class ShippingService {
+        +ship(book, address, email, quantity)
+    }
+
+    class FileType
+
+    Book <|-- EBook
+    Book <|-- Paper
+
+    Inventory o-- Book
+    BookStore --> Inventory
+    BookStore --> Book
+    BookStore --> MailService
+    BookStore --> ShippingService
+    EBook --> FileType
+    MailService --> Book
+    ShippingService --> Book
+```
+
+
+
