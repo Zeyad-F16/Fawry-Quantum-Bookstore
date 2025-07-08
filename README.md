@@ -139,5 +139,36 @@ classDiagram
     ShippingService --> Book
 ```
 
+```mermaid
+sequenceDiagram
+    participant Main
+    participant Inventory
+    participant BookStore
+    participant Paper
+    participant EBook
+    participant MailService
+    participant ShippingService
 
+    Main->>Inventory: new Inventory()
+    Main->>EBook: create EBook
+    Main->>Paper: create Paper
+    Main->>Inventory: addBook(ebook)
+    Main->>Inventory: addBook(paper)
+    Main->>Inventory: removeOutdatedBooks(2020)
+    Main->>BookStore: new BookStore(inventory)
+
+    Main->>BookStore: buy("1234567890", 1, email, address)
+    BookStore->>Inventory: getBook(ISBN)
+    BookStore->>EBook: isDemo()
+    BookStore->>EBook: isShippable()
+    BookStore->>MailService: sendEmail(book, email, fileType)
+
+    Main->>BookStore: buy("1234567891", 1, email, address)
+    BookStore->>Inventory: getBook(ISBN)
+    BookStore->>Paper: isDemo()
+    BookStore->>Paper: isShippable()
+    BookStore->>Paper: getQuantity()
+    BookStore->>Paper: reduceQuantity(1)
+    BookStore->>ShippingService: ship(book, address, email, 1)
+```
 
