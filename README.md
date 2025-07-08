@@ -1,27 +1,69 @@
-# Fawry Quantum Bookstore
+# 📚 Fawry Quantum Bookstore
 
-A simple **Console-based Bookstore System** built in Java for the Fawry Quantum Internship challenge.  
-This project simulates a real-world bookstore with different book types — managing inventory, validating actions, and performing book purchases.
+A simple Java-based bookstore system that supports both **paper books** and **eBooks**. The system allows for adding books to inventory, removing outdated books, and processing purchases with delivery (either shipping or email).
 
+---
+
+## 🧠 Project Structure
+
+```
+Fawry-Quantum-Bookstore/
+├── Main.java                     // Entry point of the application
+├── bookStore/
+│   └── BookStore.java            // Main store logic (buying books, connecting inventory and services)
+├── inventory/
+│   └── Inventory.java            // Handles storage and management of books
+├── models/
+│   ├── Book.java                 // Abstract base class for all book types
+│   ├── Paper.java                // Represents a physical book
+│   ├── EBook.java                // Represents a digital book
+│   └── FileType.java             // Enum for eBook formats (PDF, EPUB, MOBI)
+├── services/
+│   ├── MailService.java          // Handles email delivery for eBooks
+│   └── ShippingService.java      // Handles physical shipping for paper books
+```
+
+---
 
 ## 🚀 Features
 
-- **📗 Book Types:**
-  - `PaperBook` : Includes stock and requires shipping.
-  - `EBook` : Has file format (e.g. PDF) and sent via email.
-  - `ShowcaseBook` : Demo book for display only (not for sale).
+- Add physical and digital books to inventory  
+- Remove outdated books (older than 20 years)  
+- Buy books:
+  - Email delivery for eBooks  
+  - Shipping for paper books  
+- Prevents purchase of demo books  
+- Tracks quantity of physical books  
 
-- **🧩 Interfaces / Abstraction:**
-  - `Purchasable` : Implemented by books that can be purchased.
-  - `Shippable` : Implemented by books that require shipping.
-  - `Emailable` : Implemented by books that can be emailed.
+---
 
-- **📦 Inventory Management:**
-  - Add different types of books.
-  - View current inventory.
-  - Handle purchase requests based on type.
+## 🛠️ Classes Overview
 
-- **📬 Purchase Logic:**
-  - Paper books: Check and reduce stock.
-  - EBooks: Simulate email delivery.
-  - Showcase books: Cannot be purchased.
+### `Book` (Abstract)
+- Fields: `ISBN`, `title`, `publishYear`, `price`, `isDemo`
+- Abstract method: `isShippable()`
+
+### `Paper` (extends `Book`)
+- Fields: `quantity`
+- `isShippable() → true`
+
+### `EBook` (extends `Book`)
+- Fields: `fileType`
+- `isShippable() → false`
+
+### `Inventory`
+- Stores books
+- Adds/removes/fetches books
+- Removes books older than 20 years
+
+### `BookStore`
+- Buys books by ISBN
+- Differentiates between shippable and emailable books
+- Uses `ShippingService` and `MailService`
+
+### `ShippingService`
+- `ship(Book book, String address, String email, int quantity)`
+
+### `MailService`
+- `sendEmail(Book book, String email, FileType fileType)`
+
