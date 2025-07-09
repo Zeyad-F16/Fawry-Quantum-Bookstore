@@ -3,6 +3,15 @@
 A simple Java-based bookstore system that supports both **paper books** and **eBooks**. The system allows for adding books to inventory, removing outdated books, and processing purchases with delivery (either shipping or email).
 
 ---
+## Screenshots from my running app
+---
+![image](https://github.com/user-attachments/assets/149a533a-86fb-41d3-a697-dd157f5ac747)
+![image](https://github.com/user-attachments/assets/012f425f-201e-45eb-b6c5-e73bb79810b4)
+![image](https://github.com/user-attachments/assets/2d2f6cce-3a52-4c59-ac4e-a980eb7c4ba1)
+
+
+
+---
 
 ## 🧠 Project Structure
 
@@ -66,8 +75,6 @@ Fawry-Quantum-Bookstore/
 
 ### `MailService`
 - `sendEmail(Book book, String email, FileType fileType)`
-
-
 
 ```mermaid
 
